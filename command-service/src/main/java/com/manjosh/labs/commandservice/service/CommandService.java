@@ -1,12 +1,12 @@
 package com.manjosh.labs.commandservice.service;
 
 import com.manjosh.labs.commandservice.dto.CommandRequest;
-import com.manjosh.labs.commandservice.event.CommandEvent;
 import com.manjosh.labs.commandservice.kafka.CommandProducer;
 import com.manjosh.labs.commandservice.model.Command;
-import com.manjosh.labs.commandservice.model.CommandStatus;
-import com.manjosh.labs.commandservice.model.CommandType;
 import com.manjosh.labs.commandservice.repository.CommandRepository;
+import com.manjosh.labs.devicecontracts.models.CommandEvent;
+import com.manjosh.labs.devicecontracts.models.CommandStatus;
+import com.manjosh.labs.devicecontracts.models.CommandType;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

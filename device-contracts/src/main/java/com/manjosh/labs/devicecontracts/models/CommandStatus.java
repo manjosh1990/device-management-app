@@ -1,4 +1,4 @@
-package com.manjosh.labs.commandservice.model;
+package com.manjosh.labs.devicecontracts.models;
 
 public enum CommandStatus {
   PENDING,

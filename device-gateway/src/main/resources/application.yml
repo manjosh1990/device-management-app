@@ -1,0 +1,21 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: device-gateway
+
+kafka:
+  consumer:
+    bootstrap-servers: localhost:9092
+    group-id: device-gateway
+    auto-offset-reset: earliest
+    topic: device-commands
+    concurrency: 3
+    ack-mode: MANUAL
+
+logging:
+  level:
+    org.springframework.kafka: DEBUG
+    org.apache.kafka.clients.consumer: DEBUG
+    org.apache.kafka.clients.NetworkClient: INFO

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "app.kafka")
 public class KafkaProperties {
 
+  private String bootstrapServers;
   private TopicProperties topic;
 
   @Data

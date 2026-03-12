@@ -1,5 +1,6 @@
 package com.manjosh.labs.commandservice.model;
 
+import com.manjosh.labs.devicecontracts.models.CommandStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,7 +24,7 @@ public class Command {
   private String deviceId;
 
   @Enumerated(EnumType.STRING)
-  private CommandType commandType;
+  private com.manjosh.labs.devicecontracts.models.CommandType commandType;
 
   @Enumerated(EnumType.STRING)
   private CommandStatus status;

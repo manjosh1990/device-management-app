@@ -1,8 +1,8 @@
 package com.manjosh.labs.commandservice.kafka;
 
 import com.manjosh.labs.commandservice.config.KafkaProperties;
-import com.manjosh.labs.commandservice.event.CommandEvent;
 import com.manjosh.labs.commandservice.exception.KafkaSerializationException;
+import com.manjosh.labs.devicecontracts.models.CommandEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
