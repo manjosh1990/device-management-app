@@ -16,14 +16,8 @@ spring:
       ddl-auto: update
     show-sql: true
 
-  kafka:
-    bootstrap-servers: localhost:9092
-
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
-
 app:
   kafka:
+    bootstrap-servers: localhost:9092
     topic:
       device-commands: device-commands

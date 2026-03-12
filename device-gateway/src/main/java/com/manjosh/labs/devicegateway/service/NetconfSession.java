@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 public class NetconfSession {
   private final String deviceId;
 
-  public String executeRpc(final String command,final String payload) {
+  public String executeRpc(final String command, final String payload) {
 
     log.info("Sending NETCONF RPC to {} command={}", deviceId, command);
 

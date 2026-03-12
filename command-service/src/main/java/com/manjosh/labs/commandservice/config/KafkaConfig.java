@@ -3,7 +3,6 @@ package com.manjosh.labs.commandservice.config;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
@@ -25,10 +24,10 @@ public class KafkaConfig {
 
     final Map<String, Object> props = new HashMap<>();
     props.put(
-            ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-            Objects.requireNonNull(
-                    kafkaProperties.getBootstrapServers(),
-                    "app.kafka.bootstrap-servers must be configured"));
+        ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
+        Objects.requireNonNull(
+            kafkaProperties.getBootstrapServers(),
+            "app.kafka.bootstrap-servers must be configured"));
 
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
