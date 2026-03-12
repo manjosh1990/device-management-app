@@ -17,6 +17,7 @@
 
     <modules>
         <module>device-service</module>
+        <module>command-service</module>
     </modules>
 
     <properties>
