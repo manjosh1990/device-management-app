@@ -1,6 +1,7 @@
 package com.manjosh.labs.devicegateway.netconf;
 
 import com.manjosh.labs.devicecontracts.models.DeviceResponse;
+import com.manjosh.labs.devicegateway.config.NetconfProperties;
 import com.manjosh.labs.devicegateway.utils.DeviceInventoryService;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,31 +13,35 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class NetconfSessionManager {
+
   private final DeviceInventoryService deviceInventoryService;
+  private final NetconfProperties netconfProperties;
 
-  private final Map<String, NetconfSession> sessions = new ConcurrentHashMap<>();
+  private final Map<String, NetconfDeviceSession> sessions = new ConcurrentHashMap<>();
 
-  public NetconfSession getSession(String deviceId) {
-
+  public NetconfDeviceSession getSession(final String deviceId) {
     return sessions.computeIfAbsent(deviceId, this::createSession);
   }
 
-  private NetconfSession createSession(final String deviceId) {
-
+  private NetconfDeviceSession createSession(final String deviceId) {
     log.info("Creating NETCONF session for {}", deviceId);
 
-    DeviceResponse device = deviceInventoryService.getDevice(deviceId);
+    final DeviceResponse device = deviceInventoryService.getDevice(deviceId);
 
-    NetconfSession session =
-        new NetconfSession(device.getDeviceId(), device.getIpAddress(), device.getPort());
+    final NetconfDeviceSession session =
+        new NetconfDeviceSession(
+            device.getDeviceId(),
+            device.getIpAddress(),
+            device.getPort(),
+            netconfProperties.getUsername(),
+            netconfProperties.getPassword());
 
     session.connect();
     return session;
   }
 
   public void closeSession(final String deviceId) {
-
-    NetconfSession session = sessions.remove(deviceId);
+    final NetconfDeviceSession session = sessions.remove(deviceId);
 
     if (session != null) {
       session.close();

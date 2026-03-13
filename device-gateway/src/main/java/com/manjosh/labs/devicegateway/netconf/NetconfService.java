@@ -15,7 +15,7 @@ public class NetconfService {
 
     log.info("Executing NETCONF command for device {}", deviceId);
 
-    NetconfSession session = sessionManager.getSession(deviceId);
+    NetconfDeviceSession session = sessionManager.getSession(deviceId);
 
     return session.executeRpc(rpc);
   }

@@ -25,6 +25,9 @@ app:
     max-pool-size: 10
     queue-capacity: 200
     await-termination-seconds: 10
+  netconf:
+    username: netconf
+    password: netconf
 
 logging:
   level:
