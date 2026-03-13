@@ -1,6 +1,5 @@
-package com.manjosh.labs.device_service.dto;
+package com.manjosh.labs.devicecontracts.models;
 
-import com.manjosh.labs.devicecontracts.models.DeviceStatus;
 import lombok.Builder;
 import lombok.Data;
 

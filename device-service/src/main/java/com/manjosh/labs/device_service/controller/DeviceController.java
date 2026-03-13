@@ -19,7 +19,7 @@ public class DeviceController {
   @Autowired private DeviceService deviceService;
 
   @PostMapping
-  public DeviceResponse registerDevice(@RequestBody DeviceRequest request) {
+  public DeviceResponse registerDevice(@RequestBody final DeviceRequest request) {
 
     return deviceService.register(request);
   }
@@ -30,8 +30,7 @@ public class DeviceController {
   }
 
   @GetMapping("/{deviceId}")
-  public DeviceResponse getDevice(@PathVariable String deviceId) {
-
+  public DeviceResponse getDevice(@PathVariable final String deviceId) {
     return deviceService.getDevice(deviceId);
   }
 }

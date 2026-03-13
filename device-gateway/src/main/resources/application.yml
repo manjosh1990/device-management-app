@@ -14,6 +14,18 @@ kafka:
     concurrency: 3
     ack-mode: MANUAL
 
+app:
+  clients:
+    command-service:
+      base-url: http://localhost:8081
+    device-service:
+      base-url: http://localhost:8080
+  command-executor:
+    core-pool-size: 10
+    max-pool-size: 10
+    queue-capacity: 200
+    await-termination-seconds: 10
+
 logging:
   level:
     org.springframework.kafka: DEBUG

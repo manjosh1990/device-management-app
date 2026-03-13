@@ -1,6 +1,9 @@
 package com.manjosh.labs.device_service.model;
 
+import com.manjosh.labs.devicecontracts.models.DeviceStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 import lombok.Data;
@@ -20,7 +23,8 @@ public class Device {
 
   private String model;
 
-  private String status;
+  @Enumerated(EnumType.STRING)
+  private DeviceStatus status;
 
   private LocalDateTime createdAt;
 }

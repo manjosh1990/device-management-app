@@ -3,59 +3,41 @@ package com.manjosh.labs.device_service.service;
 import com.manjosh.labs.device_service.dto.DeviceRequest;
 import com.manjosh.labs.device_service.dto.DeviceResponse;
 import com.manjosh.labs.device_service.exception.DeviceNotFoundException;
+import com.manjosh.labs.device_service.mapper.DeviceMapper;
 import com.manjosh.labs.device_service.model.Device;
 import com.manjosh.labs.device_service.repository.DeviceRepository;
+import com.manjosh.labs.devicecontracts.models.DeviceStatus;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class DeviceService {
 
-  @Autowired private DeviceRepository repository;
+  private final DeviceRepository repository;
+  private final DeviceMapper deviceMapper;
 
-  public DeviceResponse register(DeviceRequest request) {
-
-    Device device = new Device();
-    device.setDeviceId(request.getDeviceId());
-    device.setName(request.getName());
-    device.setIpAddress(request.getIpAddress());
-    device.setPort(request.getPort());
-    device.setVendor(request.getVendor());
-    device.setModel(request.getModel());
-    device.setStatus("REGISTERED");
+  public DeviceResponse register(final DeviceRequest request) {
+    final Device device = deviceMapper.toEntity(request);
+    device.setStatus(DeviceStatus.REGISTERED);
     device.setCreatedAt(LocalDateTime.now());
 
-    repository.save(device);
-
-    return mapToResponse(device);
+    final Device savedDevice = repository.save(device);
+    return deviceMapper.toResponse(savedDevice);
   }
 
   public List<DeviceResponse> getAllDevices() {
-
-    return repository.findAll().stream().map(this::mapToResponse).toList();
+    return repository.findAll().stream().map(deviceMapper::toResponse).toList();
   }
 
-  public DeviceResponse getDevice(String deviceId) {
-
-    Device device =
+  public DeviceResponse getDevice(final String deviceId) {
+    final Device device =
         repository
             .findById(deviceId)
             .orElseThrow(() -> new DeviceNotFoundException("Device not found"));
 
-    return mapToResponse(device);
-  }
-
-  private DeviceResponse mapToResponse(Device device) {
-
-    return DeviceResponse.builder()
-        .deviceId(device.getDeviceId())
-        .name(device.getName())
-        .ipAddress(device.getIpAddress())
-        .vendor(device.getVendor())
-        .model(device.getModel())
-        .status(device.getStatus())
-        .build();
+    return deviceMapper.toResponse(device);
   }
 }
