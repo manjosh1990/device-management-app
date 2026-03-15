@@ -4,6 +4,7 @@ import com.manjosh.labs.devicegateway.exception.NetconfConnectionException;
 import com.tailf.jnc.Element;
 import com.tailf.jnc.JNCException;
 import com.tailf.jnc.NetconfSession;
+import com.tailf.jnc.NodeSet;
 import com.tailf.jnc.SSHConnection;
 import com.tailf.jnc.SSHSession;
 import com.tailf.jnc.XMLParser;
@@ -13,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 public class NetconfDeviceSession {
+
+  private static final int CONNECTION_TIMEOUT_MS = 10000;
 
   private final String deviceId;
   private final String host;
@@ -49,7 +52,7 @@ public class NetconfDeviceSession {
     log.info("Connecting to NETCONF device {} at {}:{}", deviceId, host, port);
 
     try {
-      final SSHConnection connection = new SSHConnection(host, port);
+      final SSHConnection connection = new SSHConnection(host, port, CONNECTION_TIMEOUT_MS);
       connection.authenticateWithPassword(username, password);
 
       sshSession = new SSHSession(connection);
@@ -64,11 +67,22 @@ public class NetconfDeviceSession {
     }
   }
 
-  public synchronized String executeRpc(final String rpc) {
-    if (!connected) {
-      connect();
-    }
+  public synchronized String getConfig() {
+    ensureConnected();
+    log.info("Getting running config from device {}", deviceId);
 
+    try {
+      final NodeSet config = netconfSession.getConfig(NetconfSession.RUNNING);
+      return config.toXMLString();
+    } catch (final Exception ex) {
+      log.error("get-config failed for device {}", deviceId, ex);
+      resetSessionState();
+      throw new NetconfConnectionException("get-config failed for device " + deviceId, ex);
+    }
+  }
+
+  public synchronized String executeRpc(final String rpc) {
+    ensureConnected();
     log.info("Executing RPC on device {}", deviceId);
     log.debug("RPC payload for device {}: {}", deviceId, rpc);
 
@@ -90,6 +104,12 @@ public class NetconfDeviceSession {
   public synchronized void close() {
     log.info("Closing NETCONF session for device {}", deviceId);
     resetSessionState();
+  }
+
+  private void ensureConnected() {
+    if (!connected) {
+      connect();
+    }
   }
 
   private XMLParser createParser() {

@@ -3,19 +3,19 @@ version: "3.8"
 services:
 
   ont1:
-    image: sysrepo/sysrepo-netopeer2:latest
+    image: sysrepo/sysrepo-netopeer2:legacy
     container_name: ont1
     ports:
       - "8301:830"
 
   ont2:
-    image: sysrepo/sysrepo-netopeer2:latest
+    image: sysrepo/sysrepo-netopeer2:legacy
     container_name: ont2
     ports:
       - "8302:830"
 
 #  ont3:
-#    image: sysrepo/sysrepo-netopeer2:latest
+#    image: sysrepo/sysrepo-netopeer2:legacy
 #    container_name: ont3
 #    ports:
 #      - "8303:830"

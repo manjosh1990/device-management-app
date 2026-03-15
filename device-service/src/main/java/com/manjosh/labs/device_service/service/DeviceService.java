@@ -1,11 +1,11 @@
 package com.manjosh.labs.device_service.service;
 
 import com.manjosh.labs.device_service.dto.DeviceRequest;
-import com.manjosh.labs.device_service.dto.DeviceResponse;
 import com.manjosh.labs.device_service.exception.DeviceNotFoundException;
 import com.manjosh.labs.device_service.mapper.DeviceMapper;
 import com.manjosh.labs.device_service.model.Device;
 import com.manjosh.labs.device_service.repository.DeviceRepository;
+import com.manjosh.labs.devicecontracts.models.DeviceResponse;
 import com.manjosh.labs.devicecontracts.models.DeviceStatus;
 import java.time.LocalDateTime;
 import java.util.List;

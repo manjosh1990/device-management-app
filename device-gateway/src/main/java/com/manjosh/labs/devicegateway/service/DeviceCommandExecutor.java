@@ -32,7 +32,7 @@ public class DeviceCommandExecutor {
       // mark IN_PROGRESS
       commandService.updateStatus(commandId, IN_PROGRESS);
 
-      String response = netconfService.executeCommand(deviceId, command.getPayload());
+      String response = netconfService.executeCommand(deviceId, command.getCommandType(), command.getPayload());
 
       log.info("Device response: {}", response);
 

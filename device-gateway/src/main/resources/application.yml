@@ -31,6 +31,6 @@ app:
 
 logging:
   level:
-    org.springframework.kafka: DEBUG
-    org.apache.kafka.clients.consumer: DEBUG
-    org.apache.kafka.clients.NetworkClient: INFO
+    org.springframework.kafka: ERROR
+    org.apache.kafka.clients.consumer: ERROR
+    org.apache.kafka.clients.NetworkClient: ERROR

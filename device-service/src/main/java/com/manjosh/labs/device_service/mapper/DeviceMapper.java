@@ -1,8 +1,8 @@
 package com.manjosh.labs.device_service.mapper;
 
 import com.manjosh.labs.device_service.dto.DeviceRequest;
-import com.manjosh.labs.device_service.dto.DeviceResponse;
 import com.manjosh.labs.device_service.model.Device;
+import com.manjosh.labs.devicecontracts.models.DeviceResponse;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -11,12 +11,14 @@ public class NetconfService {
 
   private final NetconfSessionManager sessionManager;
 
-  public String executeCommand(String deviceId, String rpc) {
+  public String executeCommand(final String deviceId, final String commandType, final String payload) {
+    log.info("Executing NETCONF command {} for device {}", commandType, deviceId);
 
-    log.info("Executing NETCONF command for device {}", deviceId);
+    final NetconfDeviceSession session = sessionManager.getSession(deviceId);
 
-    NetconfDeviceSession session = sessionManager.getSession(deviceId);
-
-    return session.executeRpc(rpc);
+    return switch (commandType) {
+      case "GET_CONFIG" -> session.getConfig();
+      default -> session.executeRpc(payload);
+    };
   }
 }

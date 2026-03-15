@@ -1,9 +1,10 @@
 package com.manjosh.labs.device_service.controller;
 
 import com.manjosh.labs.device_service.dto.DeviceRequest;
-import com.manjosh.labs.device_service.dto.DeviceResponse;
 import com.manjosh.labs.device_service.service.DeviceService;
 import java.util.List;
+
+import com.manjosh.labs.devicecontracts.models.DeviceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
